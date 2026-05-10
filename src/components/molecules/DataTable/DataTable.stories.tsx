@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import DataTable from './DataTable';
-import React from 'react';
+import React, { useState } from 'react';
 import Chip from '@/components/atoms/Chip/Chip';
 import { FileText } from 'lucide-react';
+import type { DataTableSort } from './types';
 
 const meta: Meta<typeof DataTable> = {
 	title: 'Molecules/DataTable',
@@ -19,9 +20,9 @@ export default meta;
 type Story = StoryObj<typeof DataTable>;
 
 const invoiceColumns = [
-	{ key: 'id', header: 'Invoice ID' },
-	{ key: 'customer', header: 'Customer' },
-	{ key: 'amount', header: 'Amount', align: 'right' as const },
+	{ key: 'id', header: 'Invoice ID', sortable: true },
+	{ key: 'customer', header: 'Customer', sortable: true },
+	{ key: 'amount', header: 'Amount', align: 'right' as const, sortable: true },
 	{
 		key: 'status',
 		header: 'Status',
@@ -40,7 +41,7 @@ const invoiceColumns = [
 			});
 		},
 	},
-	{ key: 'date', header: 'Date' },
+	{ key: 'date', header: 'Date', sortable: true },
 ];
 
 const invoiceData = [
@@ -102,6 +103,38 @@ export const ClickableRows: Story = {
 		data: invoiceData,
 		onRowClick: fn(),
 	},
+};
+
+const SortableStory = () => {
+	const [sort, setSort] = useState<DataTableSort | null>(null);
+
+	const sortedData = React.useMemo(() => {
+		if (!sort) return invoiceData;
+		return [...invoiceData].sort((a, b) => {
+			const aVal = String(a[sort.key as keyof typeof a] ?? '');
+			const bVal = String(b[sort.key as keyof typeof b] ?? '');
+			const cmp = aVal.localeCompare(bVal);
+			return sort.direction === 'asc' ? cmp : -cmp;
+		});
+	}, [sort]);
+
+	return React.createElement('div', { className: 'space-y-3' },
+		React.createElement('p', { className: 'text-sm text-muted-foreground' },
+			sort
+				? `Sorted by ${sort.key} (${sort.direction})`
+				: 'Click a column header to sort',
+		),
+		React.createElement(DataTable, {
+			columns: invoiceColumns,
+			data: sortedData,
+			sort,
+			onSort: setSort,
+		}),
+	);
+};
+
+export const WithSorting: Story = {
+	render: () => React.createElement(SortableStory),
 };
 
 const statuses = ['paid', 'draft', 'void'] as const;

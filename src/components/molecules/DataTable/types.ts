@@ -6,6 +6,7 @@ export interface DataTableColumn<T> {
 	render?: (row: T) => React.ReactNode;
 	width?: string | number;
 	align?: 'left' | 'center' | 'right';
+	sortable?: boolean;
 }
 
 export interface DataTablePagination {
@@ -13,6 +14,13 @@ export interface DataTablePagination {
 	pageSize: number;
 	total: number;
 	onChange: (page: number) => void;
+}
+
+export type SortDirection = 'asc' | 'desc';
+
+export interface DataTableSort {
+	key: string;
+	direction: SortDirection;
 }
 
 export interface DataTableProps<T> {
@@ -24,4 +32,6 @@ export interface DataTableProps<T> {
 	onRowClick?: (row: T) => void;
 	virtualized?: boolean;
 	rowHeight?: number;
+	sort?: DataTableSort | null;
+	onSort?: (sort: DataTableSort | null) => void;
 }

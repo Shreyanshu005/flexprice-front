@@ -40,7 +40,7 @@ describe('EmptyState', () => {
 
 	it('renders the icon', () => {
 		const { container } = render(React.createElement(EmptyState, {
-			icon: React.createElement(FileText, { 'data-testid': 'icon' }),
+			icon: React.createElement(FileText),
 			headline: 'Test',
 			subtext: 'Test description',
 		}));

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import FullPageSpinner from './FullPageSpinner';
-import React from 'react';
 
 /**
  * Full-page loading indicator shown when navigating between pages

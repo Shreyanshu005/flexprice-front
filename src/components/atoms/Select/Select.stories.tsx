@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import FlexPriceSelect from './Select';
-import React from 'react';
 
 /**
  * Dropdown select component built on Radix UI Select primitive.

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import DateRangePicker from './DateRangePicker';
-import React from 'react';
 
 /**
  * Date range picker wrapping shadcn Calendar with Radix Popover.

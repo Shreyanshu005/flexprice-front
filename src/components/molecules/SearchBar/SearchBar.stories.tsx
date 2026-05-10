@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn, expect, userEvent, within } from '@storybook/test';
 import SearchBar from './SearchBar';
-import React from 'react';
 
 const meta: Meta<typeof SearchBar> = {
 	title: 'Molecules/SearchBar',

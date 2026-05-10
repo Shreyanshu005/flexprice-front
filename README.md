@@ -248,7 +248,27 @@ npm run preview      # Preview production build
 npm run lint        # Run ESLint
 npm run lint:fix    # Fix ESLint errors
 npm run format      # Format with Prettier
+
+# Storybook
+npm run storybook     # Launch at http://localhost:6006
+npm run build-storybook # Build static Storybook site
+
+# Testing
+npm test              # Run Vitest test suite
+npm run test:coverage # Run tests with coverage report
 ```
+
+## 🧩 Component Library (Storybook)
+
+The project includes a Storybook-driven component library with 17 documented stories across 3 tiers:
+
+**Atoms** (7 stories): Button, Chip, Input, Select, Tooltip, Spinner, FullPageSpinner, DateRangePicker
+
+**Molecules** (6 stories): DataTable (with sorting + 10k-row virtualization), SearchBar, UsageBar, InvoiceStatusBadge, MetricCard, SortDropdown
+
+**Organisms** (4 stories): EmptyState, PricingTierTable (graduated/volume/flat/package), SidebarNav (with collapse animation)
+
+Every story includes working Controls panel props, and key components have `play()` interaction tests.
 
 ## 🔧 Common Development Tasks
 
@@ -334,7 +354,7 @@ Our comprehensive documentation covers all aspects of the FlexPrice frontend:
 
 <!-- - [FAQ](docs/FAQ.md) - Common questions and answers -->
 
-- [Flexprice Docs](https://docs.flexprice.io) - Documenttation for Flexprice sdk and Apis
+- [Flexprice Docs](https://docs.flexprice.io) - Documentation for Flexprice SDKs and APIs
 - [Contributing Guide](docs/getting-started.md) - How to contribute to the project
 
 ## 🚀 Latest Releases

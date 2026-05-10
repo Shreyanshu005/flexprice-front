@@ -50,18 +50,26 @@ export const Default: Story = {
 export const AllSides: Story = {
 	render: () =>
 		React.createElement('div', { className: 'flex gap-8 items-center p-16' },
-			React.createElement(Tooltip, { content: 'Top tooltip', side: 'top' },
-				React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Top'),
-			),
-			React.createElement(Tooltip, { content: 'Right tooltip', side: 'right' },
-				React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Right'),
-			),
-			React.createElement(Tooltip, { content: 'Bottom tooltip', side: 'bottom' },
-				React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Bottom'),
-			),
-			React.createElement(Tooltip, { content: 'Left tooltip', side: 'left' },
-				React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Left'),
-			),
+			React.createElement(Tooltip, {
+				content: 'Top tooltip',
+				side: 'top',
+				children: React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Top'),
+			}),
+			React.createElement(Tooltip, {
+				content: 'Right tooltip',
+				side: 'right',
+				children: React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Right'),
+			}),
+			React.createElement(Tooltip, {
+				content: 'Bottom tooltip',
+				side: 'bottom',
+				children: React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Bottom'),
+			}),
+			React.createElement(Tooltip, {
+				content: 'Left tooltip',
+				side: 'left',
+				children: React.createElement('button', { className: 'px-3 py-1 border rounded text-sm' }, 'Left'),
+			}),
 		),
 };
 

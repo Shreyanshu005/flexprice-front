@@ -10,6 +10,15 @@ import { PriceApi } from '@/api/PriceApi';
 import EntitlementApi from '@/api/EntitlementApi';
 import CreditGrantApi from '@/api/CreditGrantApi';
 
+vi.mock('@/core/services/supbase/config', () => ({
+	default: {
+		auth: {
+			getSession: vi.fn().mockResolvedValue({ data: null, error: null }),
+			onAuthStateChange: vi.fn().mockReturnValue({ data: { subscription: { unsubscribe: vi.fn() } } }),
+		},
+	},
+}));
+
 vi.mock('@/api/FeatureApi', () => ({
 	default: {
 		listFeatures: vi.fn(),
