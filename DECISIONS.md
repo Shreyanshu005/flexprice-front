@@ -4,7 +4,7 @@ Architectural decisions, observations from the live app, and tradeoffs made duri
 
 ## 1. Component Placement Strategy
 
-Built new components alongside existing ones rather than replacing them. The existing `Button`, `Chip`, `Input`, `Select`, `Tooltip`, and `Spinner` atoms are already used throughout the codebase. Adding stories and tests to them (rather than rewriting) shows integration awareness and avoids regression risk. New components like `DataTable`, `EmptyState`, `SearchBar`, and `UsageBar` live in their own directories.
+Built new components alongside existing ones rather than replacing them. The existing `Button`, `Chip`, `Input`, `Select`, `Tooltip`, and `Spinner` atoms are already used throughout the codebase. I decided to just add stories and tests to them instead of doing a full rewrite—it's a much safer approach that prevents us from accidentally breaking existing pages. New components like `DataTable`, `EmptyState`, `SearchBar`, and `UsageBar` live in their own directories.
 
 ## 2. Chip Color Values Are Hardcoded Hex
 
@@ -77,19 +77,16 @@ Chose `sessionStorage` for the Zustand filter store because:
 
 ## Bugs Found During Audit
 
-### Bug 1: Customers empty state shows wrong description text — [GitHub Issue #897](https://github.com/flexprice/flexprice-front/issues/897)
 
-On the Customers page empty state (`admin.flexprice.io` → Billing → Customers), the description text reads **"Create a plan to display pricing"** — which is the Plans page description copy-pasted by mistake. The Customers page should have its own contextual copy like *"Add your first customer to start managing subscriptions and billing."* Raised as GitHub Issue #897.
-
-### Bug 2: `useDebounce.ts` is an empty file
+### Bug 1: `useDebounce.ts` is an empty file
 
 `src/hooks/useDebounce.ts` was a completely empty file — exporting nothing. Any component importing this hook would get `undefined` at runtime. The project uses `use-debounce` from npm in some places, but having an empty local hook file is confusing and error-prone. We implemented a working version as part of the SearchBar component work.
 
-### Bug 3: `orchestrator.test.ts` permanently fails
+### Bug 2: `orchestrator.test.ts` permanently fails
 
 `src/api/ai/orchestrator.test.ts` fails on every run of `npx vitest run`. All 122 individual tests pass, but this file-level failure pollutes CI output and trains developers to ignore test failures. It should either be fixed, marked with `describe.skip()`, or removed.
 
-### Bug 4: `formatNumber(0)` returns `'-'` instead of `'0'`
+### Bug 3: `formatNumber(0)` returns `'-'` instead of `'0'`
 
 In `src/utils/common/format_number.ts`, line 8 uses `if (!value) return '-'`. Since `!0` is `true` in JavaScript, calling `formatNumber(0)` returns `'-'` instead of the correctly formatted `'0'`. This affects any dashboard location displaying zero revenue, zero events, or zero API calls — showing a dash where `$0.00` or `0` should appear. The fix is to change the guard to `if (value == null || Number.isNaN(value)) return '-'`.
 
